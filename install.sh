@@ -6,7 +6,7 @@ ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERS
 
 # resolve dependencies
 apt-get update
-apt-get install wget openjdk-7-jdk maven
+apt-get -y install wget git openjdk-7-jdk maven
 
 mkdir -m 777 /tmp/cassandra
 cd /tmp/cassandra
@@ -17,6 +17,11 @@ mv "apache-cassandra-$VERSION" /opt/cassandra
 useradd cassandra
 install -d -o cassandra -m 755 /opt/cassandra/data
 install -d -o cassandra -m 755 /opt/cassandra/logs
+
+# build cassandra-lucene-index
+git clone -b branch-2.2.4 --single-branch https://github.com/Stratio/cassandra-lucene-index.git
+cd cassandra-lucene-index
+mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 chown -R cassandra /opt/cassandra
 
