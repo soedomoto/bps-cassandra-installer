@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 
-VERSION="$0"
+VERSION="2.2.4"
 ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERSION-bin.tar.gz"
 
 sudo mkdir -m 777 /tmp/cassandra
