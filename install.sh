@@ -4,17 +4,21 @@
 VERSION="2.2.4"
 ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERSION-bin.tar.gz"
 
-sudo mkdir -m 777 /tmp/cassandra
+# resolve dependencies
+apt-get update
+apt-get install wget openjdk-7-jdk maven
+
+mkdir -m 777 /tmp/cassandra
 cd /tmp/cassandra
-sudo wget -c -O "apache-cassandra-$VERSION-bin.tar.gz" "$ARCHIVE"
-sudo tar -zxvf "apache-cassandra-$VERSION-bin.tar.gz"
-sudo mv "apache-cassandra-$VERSION" /opt/cassandra
+wget -c -O "apache-cassandra-$VERSION-bin.tar.gz" "$ARCHIVE"
+tar -zxvf "apache-cassandra-$VERSION-bin.tar.gz"
+mv "apache-cassandra-$VERSION" /opt/cassandra
 
-sudo useradd cassandra
-sudo install -d -o cassandra -m 755 /opt/cassandra/data
-sudo install -d -o cassandra -m 755 /opt/cassandra/logs
+useradd cassandra
+install -d -o cassandra -m 755 /opt/cassandra/data
+install -d -o cassandra -m 755 /opt/cassandra/logs
 
-sudo chown -R cassandra /opt/cassandra
+chown -R cassandra /opt/cassandra
 
 # export PATH=$PATH:/opt/cassandra/bin
 # source ~/.profile
@@ -88,7 +92,7 @@ case "$1" in
 esac 
 
 exit $?
-' | sudo tee /etc/init.d/cassandra
+' | tee /etc/init.d/cassandra
 
-sudo chmod +x /etc/init.d/cassandra
-sudo update-rc.d cassandra defaults
+chmod +x /etc/init.d/cassandra
+update-rc.d cassandra defaults
