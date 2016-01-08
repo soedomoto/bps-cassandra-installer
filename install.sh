@@ -24,12 +24,14 @@ cd cassandra-lucene-index
 mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 # set cassandra.yaml configuration
+read -e -p "Enter the Cluster Name: " -i "BPS_Cluster" CLUSTER
+
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
 import yaml
 stream = file("/opt/cassandra/conf/cassandra.original.yaml", "r")
 cassyaml = yaml.load(stream)
-cassyaml["cluster_name"] = "BPS Cluster"
+cassyaml["cluster_name"] = "$CLUSTER"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
 EOF
