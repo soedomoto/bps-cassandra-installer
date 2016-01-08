@@ -46,7 +46,7 @@ cassyaml["commitlog_directory"] = "$DATADIR/commitlog"
 cassyaml["saved_caches_directory"] = "$DATADIR/saved_caches"
 cassyaml['seed_provider'][0]['parameters'][0]['seeds'] = "$SEEDS"
 cassyaml["listen_address"] = "$IPADDR"
-cassyaml["start_rpc"] = true
+cassyaml["start_rpc"] = "true"
 cassyaml["rpc_address"] = "$IPADDR"
 cassyaml["endpoint_snitch"] = "$SNITCH"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
