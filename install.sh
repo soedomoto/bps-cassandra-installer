@@ -28,6 +28,12 @@ clear
 read -e -p "Enter the Cluster Name: " -i "BPS Cluster" CLUSTER
 clear
 read -e -p "Enter Data Directory: " -i "/opt/cassandra/data" DATADIR
+clear
+read -e -p "Enter Listen Address (Use System IP Addr if possible): " -i "127.0.0.1" IPADDR
+clear
+read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
+clear
+read -e -p "Enter Endpoint Snitch (Options : SimpleSnitch, GossipingPropertyFileSnitch, PropertyFileSnitch, Ec2Snitch, Ec2MultiRegionSnitch, RackInferringSnitch): " -i "PropertyFileSnitch" SNITCH
 
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
@@ -38,6 +44,11 @@ cassyaml["cluster_name"] = "$CLUSTER"
 cassyaml["data_file_directories"] = "$DATADIR/data"
 cassyaml["commitlog_directory"] = "$DATADIR/commitlog"
 cassyaml["saved_caches_directory"] = "$DATADIR/saved_caches"
+cassyaml['seed_provider'][0]['parameters'][0]['seeds'] = "$SEEDS"
+cassyaml["listen_address"] = "$IPADDR"
+cassyaml["start_rpc"] = true
+cassyaml["rpc_address"] = "$IPADDR"
+cassyaml["endpoint_snitch"] = "$SNITCH"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
 EOF
