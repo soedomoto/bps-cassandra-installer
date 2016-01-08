@@ -27,14 +27,9 @@ mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
 import yaml
-
 stream = file('/opt/cassandra/conf/cassandra.original.yaml', 'r')
 cassyaml = yaml.load(stream)
-
-# set value
 cassyaml['cluster_name'] = 'BPS Cluster'
-
-# save to file
 with open('/opt/cassandra/conf/cassandra.yaml', 'w') as outfile:
     outfile.write(yaml.dump(data))
 EOF
