@@ -49,7 +49,7 @@ with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
 EOF
 
 # build cassandra-lucene-index
-git clone -b branch-2.2.4 --single-branch https://github.com/Stratio/cassandra-lucene-index.git
+git clone -b "branch-$VERSION" --single-branch https://github.com/Stratio/cassandra-lucene-index.git
 cd cassandra-lucene-index
 mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
