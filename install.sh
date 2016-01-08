@@ -24,7 +24,10 @@ cd cassandra-lucene-index
 mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 # set cassandra.yaml configuration
-read -e -p "Enter the Cluster Name: " -i "BPS_Cluster" CLUSTER
+clear
+read -e -p "Enter the Cluster Name: " -i "BPS Cluster" CLUSTER
+clear
+read -e -p "Enter Data Directory: " -i "/opt/cassandra/data" DATADIR
 
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
@@ -32,6 +35,9 @@ import yaml
 stream = file("/opt/cassandra/conf/cassandra.original.yaml", "r")
 cassyaml = yaml.load(stream)
 cassyaml["cluster_name"] = "$CLUSTER"
+cassyaml["data_file_directories"] = "$DATADIR/data"
+cassyaml["commitlog_directory"] = "$DATADIR/commitlog"
+cassyaml["saved_caches_directory"] = "$DATADIR/saved_caches"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
 EOF
