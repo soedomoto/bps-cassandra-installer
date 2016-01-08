@@ -6,7 +6,7 @@ ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERS
 
 # resolve dependencies
 apt-get update
-apt-get -y install wget git openjdk-7-jdk maven
+apt-get -y install wget git openjdk-7-jdk maven python-yaml
 
 mkdir -m 777 /tmp/cassandra
 cd /tmp/cassandra
@@ -22,6 +22,22 @@ install -d -o cassandra -m 755 /opt/cassandra/logs
 git clone -b branch-2.2.4 --single-branch https://github.com/Stratio/cassandra-lucene-index.git
 cd cassandra-lucene-index
 mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
+
+# set cassandra.yaml configuration
+cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
+python - << EOF
+import yaml
+
+stream = file('/opt/cassandra/conf/cassandra.original.yaml', 'r')
+cassyaml = yaml.load(stream)
+
+# set value
+cassyaml['cluster_name'] = 'BPS Cluster'
+
+# save to file
+with open('/opt/cassandra/conf/cassandra.yaml', 'w') as outfile:
+    outfile.write(yaml.dump(data))
+EOF
 
 chown -R cassandra /opt/cassandra
 
