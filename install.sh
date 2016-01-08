@@ -29,11 +29,6 @@ useradd cassandra
 install -d -o cassandra -m 755 /opt/cassandra/data
 install -d -o cassandra -m 755 /opt/cassandra/logs
 
-# build cassandra-lucene-index
-git clone -b branch-2.2.4 --single-branch https://github.com/Stratio/cassandra-lucene-index.git
-cd cassandra-lucene-index
-mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
-
 # set cassandra.yaml configuration
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
@@ -52,6 +47,11 @@ cassyaml["endpoint_snitch"] = "$SNITCH"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
 EOF
+
+# build cassandra-lucene-index
+git clone -b branch-2.2.4 --single-branch https://github.com/Stratio/cassandra-lucene-index.git
+cd cassandra-lucene-index
+mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 chown -R cassandra /opt/cassandra
 
@@ -132,6 +132,7 @@ exit $?
 chmod +x /etc/init.d/cassandra
 update-rc.d cassandra defaults
 
-echo -e "Cassandra has been installed succesfully..."
+echo -e "\nCassandra has been installed succesfully..."
 echo -e "Start service with command : "
-echo -e "    sudo service cassandra start"
+echo -e "    sudo service cassandra start\n"
+
