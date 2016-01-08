@@ -4,6 +4,17 @@
 VERSION="2.2.4"
 ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERSION-bin.tar.gz"
 
+clear
+read -e -p "Enter the Cluster Name: " -i "BPS Cluster" CLUSTER
+clear
+read -e -p "Enter Data Directory (Different Disk is Recommended): " -i "/opt/cassandra/data" DATADIR
+clear
+read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "127.0.0.1" IPADDR
+clear
+read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
+clear
+read -e -p "Enter Endpoint Snitch (Options : SimpleSnitch, GossipingPropertyFileSnitch, PropertyFileSnitch, Ec2Snitch, Ec2MultiRegionSnitch, RackInferringSnitch): " -i "PropertyFileSnitch" SNITCH
+
 # resolve dependencies
 apt-get update
 apt-get -y install wget git openjdk-7-jdk maven python-yaml
@@ -24,17 +35,6 @@ cd cassandra-lucene-index
 mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 # set cassandra.yaml configuration
-clear
-read -e -p "Enter the Cluster Name: " -i "BPS Cluster" CLUSTER
-clear
-read -e -p "Enter Data Directory (Different Disk is Recommended): " -i "/opt/cassandra/data" DATADIR
-clear
-read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "127.0.0.1" IPADDR
-clear
-read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
-clear
-read -e -p "Enter Endpoint Snitch (Options : SimpleSnitch, GossipingPropertyFileSnitch, PropertyFileSnitch, Ec2Snitch, Ec2MultiRegionSnitch, RackInferringSnitch): " -i "PropertyFileSnitch" SNITCH
-
 cp /opt/cassandra/conf/cassandra.yaml /opt/cassandra/conf/cassandra.original.yaml
 python - << EOF
 import yaml
