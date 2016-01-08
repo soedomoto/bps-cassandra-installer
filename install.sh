@@ -27,9 +27,9 @@ mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 clear
 read -e -p "Enter the Cluster Name: " -i "BPS Cluster" CLUSTER
 clear
-read -e -p "Enter Data Directory: " -i "/opt/cassandra/data" DATADIR
+read -e -p "Enter Data Directory (Different Disk is Recommended): " -i "/opt/cassandra/data" DATADIR
 clear
-read -e -p "Enter Listen Address (Use System IP Addr if possible): " -i "127.0.0.1" IPADDR
+read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "127.0.0.1" IPADDR
 clear
 read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
 clear
@@ -131,3 +131,7 @@ exit $?
 
 chmod +x /etc/init.d/cassandra
 update-rc.d cassandra defaults
+
+echo -e "Cassandra has been installed succesfully..."
+echo -e "Start service with command : "
+echo -e "    sudo service cassandra start"
