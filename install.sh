@@ -47,3 +47,4 @@ cassyaml["endpoint_snitch"] = "$SNITCH"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
 EOF
+
