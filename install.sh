@@ -41,7 +41,7 @@ import yaml
 stream = file("/opt/cassandra/conf/cassandra.original.yaml", "r")
 cassyaml = yaml.load(stream)
 cassyaml["cluster_name"] = "$CLUSTER"
-cassyaml["data_file_directories"][0] = "$DATADIR/data"
+cassyaml["data_file_directories"] = ["$DATADIR/data"]
 cassyaml["commitlog_directory"] = "$DATADIR/commitlog"
 cassyaml["saved_caches_directory"] = "$DATADIR/saved_caches"
 cassyaml["seed_provider"][0]["parameters"][0]["seeds"] = "$SEEDS"
