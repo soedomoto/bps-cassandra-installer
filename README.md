@@ -4,6 +4,7 @@
 * OpenJDK 7
 * Apache Cassandra 2.2.4
 * Cassandra Lucene Index 2.2.4.1
+* Git ( to clone Cassandra Luce Index from Github)
 * Maven (to build Cassandra Lucene Index)
 
 ## To Install
