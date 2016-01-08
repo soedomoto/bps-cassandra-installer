@@ -55,7 +55,7 @@ mvn clean package -Ppatch -Dcassandra_home=/opt/cassandra
 
 chown -R cassandra /opt/cassandra
 
-# export PATH=$PATH:/opt/cassandra/bin
+export PATH=$PATH:/opt/cassandra/bin
 # source ~/.profile
 
 echo '#!/bin/sh
