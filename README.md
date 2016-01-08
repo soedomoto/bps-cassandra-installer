@@ -9,7 +9,8 @@
 
 ## To Install
 ```sh
-wget https://github.com/soedomoto/bps-cassandra-installer/raw/master/install.sh -O- | sudo bash
+wget https://github.com/soedomoto/bps-cassandra-installer/raw/master/install.sh -O install.sh
+sudo bash install.sh
 ```
 
 #### Usage
@@ -25,5 +26,6 @@ sudo service cassandra stop
 
 ## To Uninstall
 ```sh
-wget https://github.com/soedomoto/bps-cassandra-installer/raw/master/uninstall.sh -O- | sudo bash
+wget https://github.com/soedomoto/bps-cassandra-installer/raw/master/uninstall.sh -O uninstall.sh
+sudo bash uninstall.sh
 ```
