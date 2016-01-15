@@ -30,7 +30,7 @@ ARCHIVE="http://www.eu.apache.org/dist/cassandra/$VERSION/apache-cassandra-$VERS
 
 # resolve dependencies
 apt-get update
-apt-get -y install wget git openjdk-7-jdk maven python-yaml
+apt-get -y install wget git openjdk-7-jdk maven python-yaml python-pip
 pip install pyjavaproperties
 
 mkdir -m 777 /tmp/cassandra
