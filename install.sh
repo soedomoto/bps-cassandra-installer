@@ -21,7 +21,7 @@ read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "$PRIVIP
 clear
 read -e -p "Enter Broadcast Address (Use System IP Addr if Possible): " -i "$PUBIP" BRADDR
 clear
-read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
+read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "$PUBIP" SEEDS
 clear
 read -e -p "Enter Endpoint Snitch (Options : SimpleSnitch, GossipingPropertyFileSnitch, PropertyFileSnitch, Ec2Snitch, Ec2MultiRegionSnitch, RackInferringSnitch): " -i "Ec2MultiRegionSnitch" SNITCH
 
