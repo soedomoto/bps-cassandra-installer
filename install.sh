@@ -1,8 +1,8 @@
 #!/bin/bash
 #
 
-PRIVIP=$(hostname -I)
-PUBIP=$(wget ident.me -q)
+PRIVIP=$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')
+PUBIP=$(wget ident.me -qO-)
 
 if [ ! "$PUBIP" ]; then
     PUBIP="$PRIVIP"
@@ -19,7 +19,7 @@ read -e -p "Enter Data Directory (Different Disk is Recommended): " -i "/opt/cas
 clear
 read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "$PRIVIP" IPADDR
 clear
-read -e -p "Enter Broadcast Address (Use System IP Addr if Possible): " -i "$PUBIP" IPADDR
+read -e -p "Enter Broadcast Address (Use System IP Addr if Possible): " -i "$PUBIP" BRADDR
 clear
 read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
 clear
@@ -58,6 +58,7 @@ cassyaml["commitlog_directory"] = "$DATADIR/commitlog"
 cassyaml["saved_caches_directory"] = "$DATADIR/saved_caches"
 cassyaml["seed_provider"][0]["parameters"][0]["seeds"] = "$SEEDS"
 cassyaml["listen_address"] = "$IPADDR"
+cassyaml["broadcast_address"] = "$BRADDR"
 cassyaml["start_rpc"] = "true"
 cassyaml["rpc_address"] = "$IPADDR"
 cassyaml["endpoint_snitch"] = "$SNITCH"
