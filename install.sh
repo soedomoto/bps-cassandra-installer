@@ -17,9 +17,9 @@ read -e -p "Enter the Rack Name: " -i "RAC1" RACKNAME
 clear
 read -e -p "Enter Data Directory (Different Disk is Recommended): " -i "/opt/cassandra/data" DATADIR
 clear
-read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i $PRIVIP IPADDR
+read -e -p "Enter Listen Address (Use System IP Addr if Possible): " -i "$PRIVIP" IPADDR
 clear
-read -e -p "Enter Broadcast Address (Use System IP Addr if Possible): " -i $PUBIP IPADDR
+read -e -p "Enter Broadcast Address (Use System IP Addr if Possible): " -i "$PUBIP" IPADDR
 clear
 read -e -p "Enter Seeds Address (If more than one, use comma-delimited): " -i "127.0.0.1" SEEDS
 clear
