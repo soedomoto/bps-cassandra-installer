@@ -60,7 +60,8 @@ cassyaml["seed_provider"][0]["parameters"][0]["seeds"] = "$SEEDS"
 cassyaml["listen_address"] = "$IPADDR"
 cassyaml["broadcast_address"] = "$BRADDR"
 cassyaml["start_rpc"] = "true"
-cassyaml["rpc_address"] = "$IPADDR"
+cassyaml["rpc_address"] = "0.0.0.0"
+cassyaml["broadcast_rpc_address"] = "$BRADDR"
 cassyaml["endpoint_snitch"] = "$SNITCH"
 with open("/opt/cassandra/conf/cassandra.yaml", "w") as outfile:
     outfile.write(yaml.dump(cassyaml))
